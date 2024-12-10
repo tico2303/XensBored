@@ -4,3 +4,4 @@ __pycache__/*
 .DS_Store/*
 launch.json
 frontend/XensBored/.vscode/*
+src/__pycache__/*
