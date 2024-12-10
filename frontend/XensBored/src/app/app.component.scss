@@ -1,0 +1,83 @@
+@import '../styles.scss';
+.container{
+    display:flex;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif; /* Trendy and clean font */
+    //background: $subdued-gradient-horizontal
+    //background:#F2F0EF;
+    margin:none;
+    border-radius: 10px;
+    //background-color: $french-violet;
+    height:100vh;
+    .top-section{
+        //height:30%;
+        flex:3;
+        background-color: $french-violet;
+    }
+    .bottom-section{
+        //height:70%;
+        flex:7;
+        background-color: $vivid-pink;
+        display: flex;
+
+    }
+}
+.body-container{
+    display:flex;
+    background-image: url("../assets/background2.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    overflow: hidden;
+}
+.left-side{
+    width:20%;
+    height:100%;
+    //margin-left:2%;
+}
+.right-side{
+    width:10%;
+    height:100%;
+    margin-right:2%;
+    .right-line{
+        border-radius: 2px;
+        width: 2px;
+        height: 900px;
+        background: $red-to-pink-to-purple-vertical-gradient;
+    }
+}
+.center{
+    width: 70%;
+    height:100%;
+    margin: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .header{
+        font-size:xxx-large;
+        color:white;
+    } 
+}
+.resized-image{
+    width: 200px; /* Set desired width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 51px; /* Rounded edges */
+}
+.background-div {
+    width: 300px; /* Set the width of the div */
+    height: 200px; /* Set the height of the div */
+    background-image: url('../assets/slayBordom2-0.png') !important; /* Set the image */
+    background-size: cover; /* Ensures the image covers the div */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents repeating */
+    border-radius: 15px; /* Optional: Add rounded corners */
+  }
+  .example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+mat-icon {
+  font-size: 24px;
+}

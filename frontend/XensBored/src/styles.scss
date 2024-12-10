@@ -1,0 +1,74 @@
+/* You can add global styles to this file, and also import other style files */
+//@import 'assets/indigo-pink.css';
+
+$bright-blue: #4974ff;
+$electric-violet: #7e33ff;
+$french-violet: #6946b7;
+$vivid-pink: #ff2aad;
+$hot-red: #ff5743;
+$orange-red: #ff7433;
+
+$gray-900: #333333;
+$gray-700: #5e5e5e;
+$gray-400: #b3b3b3;
+
+$off-white: #F2F0EF;
+// Subdued Gradient Variables
+$subdued-gradient-vertical: linear-gradient(
+  180deg,
+  mix($orange-red, $gray-900, 50%) 0%, // Darkened orange-red
+  mix($vivid-pink, $gray-700, 50%) 50%, // Muted vivid-pink
+  mix($electric-violet, $gray-900, 50%) 100% // Darkened electric-violet
+);
+
+$subdued-gradient-horizontal: linear-gradient(
+  90deg,
+  mix($orange-red, $gray-900, 50%) 0%, // Darkened orange-red
+  mix($vivid-pink, $gray-700, 50%) 50%, // Muted vivid-pink
+  mix($electric-violet, $gray-900, 50%) 100% // Darkened electric-violet
+);
+// Gradient Variables
+$red-to-pink-to-purple-vertical-gradient: linear-gradient(
+  180deg,
+  $orange-red 0%,
+  $vivid-pink 50%,
+  $electric-violet 100%
+);
+
+$red-to-pink-to-purple-horizontal-gradient: linear-gradient(
+  90deg,
+  $orange-red 0%,
+  $vivid-pink 50%,
+  $electric-violet 100%
+);
+
+// Other Variables
+$pill-accent: $bright-blue;
+
+///COLORS
+.bright-blue{
+    color:$bright-blue;
+};
+.electric-violet{
+    color: $electric-violet
+}
+.french-violet{
+    color: $french-violet
+}
+.vivid-pink{
+    color: $vivid-pink
+}
+.hot-red{
+    color: $hot-red
+}
+.orange-red{
+    color: $orange-red
+}
+body{
+    //background:$off-white;
+    //background:$french-violet;
+    height:100%;
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}

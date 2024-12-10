@@ -1,0 +1,32 @@
+<div class="container">
+  <mat-sidenav-container class="example-container">
+
+    <mat-sidenav #sidenav mode="side" [(opened)]="sidenavOpened">
+      <app-navbar></app-navbar>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <button mat-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <div class="top-section">
+        <div class="left-side">
+        </div>
+        <div class="body-container">
+        </div>
+        <div class="right-side">right-side</div>
+      </div>
+      <div class="bottom-section">
+        <div class="left-side"></div>
+        <div class="center">
+          <div class="header">
+            Boredom Butler
+          </div>
+          <app-results></app-results>
+        </div>
+        <div class="right-side">right-side</div>
+        <router-outlet />
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

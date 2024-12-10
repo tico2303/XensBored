@@ -1,0 +1,17 @@
+{
+  "/suggest": {
+    "target": "http://127.0.0.1:5001",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/preference": {
+    "target": "http://127.0.0.1:5001",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/weather": {
+    "target": "http://127.0.0.1:5001",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

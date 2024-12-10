@@ -1,0 +1,7 @@
+<mat-spinner *ngIf="appService.isLoading|async"></mat-spinner>
+<div class="remark"> {{suggestion["remark"]}}</div>
+<ul class="suggestion-list">
+    <li class="vivid-pink" *ngFor="let sug of suggestion['suggestions']">
+        {{sug}}
+    </li>
+</ul>

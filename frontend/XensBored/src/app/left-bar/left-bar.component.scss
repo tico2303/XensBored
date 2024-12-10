@@ -1,0 +1,23 @@
+@use '@angular/material' as mat;
+@import '../../styles.scss';
+
+.container{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    margin:20px;
+    margin-top: 50px;
+    .button{
+        margin-bottom:20px;
+        background-color:$vivid-pink;
+    }
+    .items{
+        margin-left:10px;
+        margin-right:10px;
+    }
+}
+.custom-slider {
+    width: 90%; /* Set desired width */
+    margin: 10px auto; /* Optional: Center it */
+  }

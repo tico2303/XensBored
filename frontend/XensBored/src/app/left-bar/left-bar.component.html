@@ -1,0 +1,56 @@
+<div class="container">
+    <button class="button" (click)="submit()" mat-fab extended>
+        <mat-icon>auto_awesome</mat-icon>
+        CREATE NEW VIBES
+    </button>
+    <mat-form-field class="items">
+        <mat-label>Where we vibin' at?</mat-label>
+        <mat-select required [(ngModel)]="surveyData.selectedCategory">
+            <mat-option *ngFor="let category of options"
+                [value]="category">{{category}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div *ngIf="weather" class="weather-container">
+        <p>{{weather.description}}</p>
+        {{weather.weather_data}}
+        <img [src]="weather.icon_links">
+    </div>
+    <mat-form-field *ngIf="surveyData.selectedCategory ==='outdoor'"
+        class="items">
+        <mat-label>Zip Code</mat-label>
+        <input matInput placeholder="Zip Code"
+            [(ngModel)]="surveyData.zipCode"
+            (ngModelChange)="onZipChange($event)">
+    </mat-form-field>
+
+    <mat-form-field class="items">
+        <mat-label>What are you into?</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Enter interest">
+            <mat-chip-row
+                *ngFor="let interest of surveyData.interests"
+                (removed)="remove(interest)"
+                [editable]="false">
+                {{ interest }}
+                <button matChipRemove
+                    [attr.aria-label]="'remove ' + interest">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </mat-chip-row>
+            <input placeholder="Add interest..."
+                [matChipInputFor]="chipGrid"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event)" />
+        </mat-chip-grid>
+    </mat-form-field>
+    <mat-label>Energy Level</mat-label>
+    <mat-slider
+        class="custom-slider"
+        min="1"
+        max="11"
+        step="1"
+        discrete
+        [displayWith]="formatEngeryLabel">
+        <input matSliderThumb [(ngModel)]="surveyData.energyLevel">
+    </mat-slider>
+</div>

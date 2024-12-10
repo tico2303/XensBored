@@ -1,0 +1,20 @@
+@import '../../styles.scss';
+
+.line{
+    background:$red-to-pink-to-purple-horizontal-gradient;
+    height:2px;
+    margin:1px 0px;
+    border: none;
+}
+.nav-container{
+    width:100%;
+    .resized-image{
+        width: 72px; /* Set desired width */
+        height: auto; /* Maintain aspect ratio */
+        border-radius: 22px; /* Rounded edges */
+        margin-top:10px;
+        margin-left:10px;
+        margin-right:10px;
+        margin-bottom: -2px;
+    }
+}

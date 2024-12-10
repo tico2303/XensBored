@@ -1,0 +1,67 @@
+@import '../../styles.scss';
+
+.remark-blue{
+    color:$bright-blue;
+}
+.remark{
+    color:$french-violet;
+    font-size:larger;
+    margin-top: 10px;
+    margin-bottom: 5%;
+}
+.line{
+    background:$red-to-pink-to-purple-horizontal-gradient;
+    height:2px;
+    margin:20px 0px;
+    border: none;
+}
+.suggestion-list{
+    list-style: none; /* Remove default bullets */
+    padding: 0;
+    margin: 0;
+    max-width: 550px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    margin-left:15%;
+
+    li{
+        background: white;
+        padding: 15px 20px;
+        margin: 0;
+        color: $french-violet;
+        font-size: 1.2rem;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid #f0f0f0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+    }
+    li:before {
+        content: '✨'; /* Add a playful emoji */
+        font-size: 1.5rem;
+        animation: blink 2s linear infinite;
+        color: $vivid-pink;
+    }
+}
+/* Emoji Animation */
+@keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes blink {
+    0%, 100% {
+      opacity: 1; /* Fully visible */
+      transform: scale(1); /* Original size */
+    }
+    50% {
+      opacity: 0.5; /* Semi-transparent */
+      transform: scale(1.3); /* Slightly larger for a glowing effect */
+    }
+  }

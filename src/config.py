@@ -1,0 +1,13 @@
+import os
+
+AZURE_OPENAI_API_KEY = None
+
+if "AZURE_OPENAI_API_KEY" in os.environ:
+    AZURE_OPENAI_API_KEY = os.environ["AZURE_OPENAI_API_KEY"]
+
+AZURE_OPENAI_ENDPOINT = None
+
+if "AZURE_OPENAI_ENDPOINT" in os.environ:
+    AZURE_OPENAI_ENDPOINT = os.environ["AZURE_OPENAI_ENDPOINT"]
+
+SQLALCHEMY_DATABASE_URI = "sqlite:///app.db"
