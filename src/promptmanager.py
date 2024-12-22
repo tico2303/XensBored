@@ -8,7 +8,6 @@ class PromptManager:
         self.chat_history = []
         self.initialize_system_prompt()
         self.weatherService = WeatherService()
-        print("self.weatherService: ", self.weatherService)
 
     def initialize_system_prompt(self):
         system_content = {
@@ -18,7 +17,7 @@ class PromptManager:
                         Your a master of the GenZ culture and slag and use words like (skibbidy, rizz, phantom tax, alpha, sigma, cap,no cap, slay,sus,drip,bro...etc) often. 
                         You help kids find something to do when they are bored and make them laugh at your suggestions.
                         Your responses (both remarks and suggestions) should be in the tone and jargen of a Gen-Z person. 
-                        The format of the response should be in json like this: {"remark":<your remarks>, "suggestions":[<yourListofSuggestions>]}.
+                        The format of the response should be in json like this {"remark":<your remarks>, "suggestions":[<yourListofSuggestions>]} and should be compatible with the json.loads python function.
                         """,
         }
         self.chat_history.append(system_content)
@@ -26,13 +25,13 @@ class PromptManager:
     def add_prompt(self, category, activities):
         weather_data = None
         print("adding prompt....")
-        print("activities in prompt: ", activities)
+        # print("activities in prompt: ", activities)
         if activities["zipCode"]:
             weather_data = self.weatherService.getWeather(activities["zipCode"])
             print("city: ", self.weatherService.city)
-        print("weather data: ", weather_data)
-        print("category: ", category)
-        print("activities[" + category + "]", activities[category])
+        # print("weather data: ", weather_data)
+        # print("category: ", category)
+        # print("activities[" + category + "]", activities[category])
         if not activities[category] or len(activities[category]) == 0:
             prompt = (
                 f"Suggest some {category} activities in Gen Z slag "
@@ -76,3 +75,4 @@ class PromptManager:
             else:
                 print("content:", item["content"])
             print("\n")
+        print("Done printing chat history")

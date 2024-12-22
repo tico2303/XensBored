@@ -63,15 +63,19 @@ class BoredAssistant:
             raw_suggestion = response.choices[0].message.to_dict()
             self.prompt_manager.add_response(raw_suggestion)
             # raw_suggestion = raw_suggestion.to_dict()
-            self.prompt_manager.printChatHistory()
+            # self.prompt_manager.printChatHistory()
         except Exception as e:
             return f"Error getting suggestion: {e}"
         try:
             suggestion = json.loads(raw_suggestion["content"])
             print(type(suggestion))
+            if isinstance(suggestion, str):
+                suggestion = json.loads(suggestion)
             print("final response: ", suggestion)
             return suggestion
         except Exception as e:
+            print("Error translating suggestion to dict: ", e)
+            print("raw suggestion: ", raw_suggestion)
             return f"Error translating suggestion to dict: {e}"
 
     def show_preferences(self):
