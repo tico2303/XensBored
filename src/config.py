@@ -10,4 +10,4 @@ AZURE_OPENAI_ENDPOINT = None
 if "AZURE_OPENAI_ENDPOINT" in os.environ:
     AZURE_OPENAI_ENDPOINT = os.environ["AZURE_OPENAI_ENDPOINT"]
 
-SQLALCHEMY_DATABASE_URI = "sqlite:///app.db"
+SQLALCHEMY_DATABASE_URI = "sqlite:///app.sqlite"

@@ -50,7 +50,8 @@ class BoredAssistant:
     def suggest_activity(self):
         if self.selected_category not in self.activities:
             return {
-                "error": "Invalid category. Choose 'indoor', 'outdoor', or 'social'."
+                "status": "error",
+                "message": "Invalid category. Choose 'indoor', 'outdoor', or 'social'.",
             }
         prompt = self.prompt_manager.add_prompt(self.selected_category, self.activities)
         print(f"Activites: {self.activities}")
@@ -65,18 +66,22 @@ class BoredAssistant:
             # raw_suggestion = raw_suggestion.to_dict()
             # self.prompt_manager.printChatHistory()
         except Exception as e:
-            return f"Error getting suggestion: {e}"
+            return {"status": "error", "message": f"Error getting suggestion: {e}"}
         try:
             suggestion = json.loads(raw_suggestion["content"])
             print(type(suggestion))
             if isinstance(suggestion, str):
                 suggestion = json.loads(suggestion)
             print("final response: ", suggestion)
+            suggestion["status"] = "success"
             return suggestion
         except Exception as e:
             print("Error translating suggestion to dict: ", e)
             print("raw suggestion: ", raw_suggestion)
-            return f"Error translating suggestion to dict: {e}"
+            return {
+                "status": "error",
+                "message": f"Error translating suggestion to dict: {e}",
+            }
 
     def show_preferences(self):
         for category, items in self.activities.items():

@@ -5,3 +5,5 @@ __pycache__/*
 launch.json
 frontend/XensBored/.vscode/*
 src/__pycache__/*
+.vscode
+instance/*

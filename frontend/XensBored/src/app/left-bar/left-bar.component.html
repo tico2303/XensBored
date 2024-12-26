@@ -1,4 +1,4 @@
-<div class="container">
+<div class="leftbar-container">
     <button class="button" (click)="submit()" mat-fab extended>
         <mat-icon>auto_awesome</mat-icon>
         CREATE NEW VIBES
@@ -11,9 +11,18 @@
         </mat-select>
     </mat-form-field>
     <div *ngIf="weather" class="weather-container">
-        <p>{{weather.description}}</p>
-        {{weather.weather_data}}
-        <img [src]="weather.icon_links">
+        <!-- 
+        <p>{{weather.description_main}}</p>
+        -->
+        <p *ngIf="weather.weather_data">{{weather.weather_data.temp}} °F</p>
+        <div class="weather-icon">
+            <div
+                *ngFor="let icon of weather.icon_links">
+                <img class="icon" [src]="icon">
+            </div>
+            <p *ngIf="!weather.icon_links || weather.icon_links.length === 0"
+                class="description">{{weather.description_main}}</p>
+        </div>
     </div>
     <mat-form-field *ngIf="surveyData.selectedCategory ==='outdoor'"
         class="items">
@@ -43,7 +52,7 @@
                 (matChipInputTokenEnd)="add($event)" />
         </mat-chip-grid>
     </mat-form-field>
-    <mat-label>Energy Level</mat-label>
+    <mat-label class="label">Energy Level</mat-label>
     <mat-slider
         class="custom-slider"
         min="1"

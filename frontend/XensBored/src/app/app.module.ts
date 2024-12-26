@@ -28,7 +28,7 @@ import {MatSliderModule} from '@angular/material/slider';
     BrowserAnimationsModule,
     AppRoutingModule,
     ToastrModule.forRoot({
-      timeOut: 3000, // Duration in milliseconds
+      timeOut: 5000, // Duration in milliseconds
       positionClass: 'toast-top-right', // Position of the toast
       preventDuplicates: true, // Prevent duplicate messages
     }),

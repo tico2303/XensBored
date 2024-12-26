@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 @import '../../styles.scss';
 
-.container{
+.leftbar-container{
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -17,7 +17,44 @@
         margin-right:10px;
     }
 }
+$custom-slider-color:red;
+
+
 .custom-slider {
     width: 90%; /* Set desired width */
     margin: 10px auto; /* Optional: Center it */
+    ::nd-deep .mat-accent .mat-slider-thumb {
+        background-color: $custom-slider-color;
+    }
+    ::nd-deep .mat-slider-track-fill {
+        background-color: $custom-slider-color;
+    }
+    ::nd-deep .mat-mdc-slider-track-background {
+        background-color: lighten($custom-slider-color, 40%);
+    }
+    ::nd-deep .mat-slider-thumb-label {
+        background-color: $custom-slider-color;
   }
+}
+.weather-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 42px;
+    margin-top:-20px;
+    .weather-icon{
+        display: flex;
+        flex-direction: row;
+        .description{
+            position: relative;
+            bottom:8px;
+        }
+        .icon{
+            margin-top:-30px;
+        }
+
+    }
+}
+.label{
+    color: white;
+}
