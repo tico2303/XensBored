@@ -1,0 +1,28 @@
+<div class="login-modal">
+    <h2>Login</h2>
+    <mat-form-field class="input-style" appearance="outline"
+        class="input-field">
+        <mat-label class="label-style">Username</mat-label>
+        <input matInput [(ngModel)]="username" />
+    </mat-form-field>
+    <!-- 
+    <mat-form-field appearance="outline" class="input-field">
+        <mat-label>Password</mat-label>
+        <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            [(ngModel)]="password" />
+        <button mat-icon-button matSuffix
+            (click)="hidePassword = !hidePassword">
+            <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off'
+                }}</mat-icon>
+        </button>
+    </mat-form-field>
+    -->
+
+    <div class="modal-actions">
+        <button mat-button (click)="close()">Cancel</button>
+        <button class="button-color" mat-flat-button color="primary"
+            (click)="login()">Login</button>
+    </div>
+</div>

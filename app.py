@@ -2,10 +2,9 @@ from src.boredassistant import BoredAssistant
 from src.config import SQLALCHEMY_DATABASE_URI
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
 import json
-import os
 from src.models import db
+from sqlalchemy.orm import Session
 
 app = Flask(__name__)
 CORS(app)
@@ -30,8 +29,8 @@ def login():
     username = data.get("username")
     email = data.get("email", None)
     zipcode = data.get("zipcode", None)
-    interests = data.get("interests", [])
-    chat_history = data.get("chat_history", [])
+    interests = data.get("interests", None)
+    chat_history = data.get("chat_history", None)
 
     if not username:
         return (
@@ -40,9 +39,7 @@ def login():
         )
 
     # Check if the user exists by username or email
-    user = User.query.filter(
-        (User.username == username) | (User.email == email)
-    ).first()
+    user = User.query_user(username)
 
     if user:
         # Update the login status
@@ -71,6 +68,7 @@ def login():
         )
     else:
         # Create a new user
+        print("Creating new user")
         new_user = User(
             username=username,
             email=email,
@@ -106,7 +104,7 @@ def logout():
         )
 
     # Find the user by username or email
-    user = User.query.filter((User.username == username)).first()
+    user = User.query_user(username)
 
     if not user:
         return jsonify({"status": "error", "message": "User not found"}), 404
@@ -119,7 +117,6 @@ def logout():
 
     # Update the user's logged-in status
     user.isLoggedIn = False
-    db.session.commit()
 
     return (
         jsonify(
@@ -135,11 +132,24 @@ def logout():
     )
 
 
+@app.route("/user", methods=["GET"])
+def get_user():
+    username = request.args.get("username")
+    user = User.query_user(username)
+    if not username:
+        return jsonify({"status": "error", "message": "Username is required"}), 400
+    if not user:
+        return jsonify({"status": "error", "message": "User not found"}), 404
+
+    return jsonify(user.to_json()), 200
+
+
 @app.route("/suggest", methods=["GET"])
 def suggest_activity():
     print("looking for something to do...")
-    suggestion = bored.suggest_activity()
-    bored.clear_preferences()
+    username = request.args.get("username", None)
+    suggestion = bored.suggest_activity(username)
+    bored.clear_preferences(username)
     if suggestion["status"] == "error":
         return jsonify(suggestion)
     return jsonify(suggestion), 200
@@ -149,14 +159,15 @@ def suggest_activity():
 def add_preference():
     print("Adding preference endpoint called")
     try:
+        username = request.args.get("username", None)
         data = request.get_json()
         print(data)
         print(type(data))
         if not data:
             return jsonify({"status": "error", "message": "No Json data received"}), 400
-        bored.add_preferences(data)
+        preferences = bored.add_preferences(data, username)
         return (
-            jsonify({"status": "sucess", "preferences": json.dumps(bored.activities)}),
+            jsonify({"status": "sucess", "preferences": json.dumps(preferences)}),
             200,
         )
     except Exception as e:
@@ -167,7 +178,8 @@ def add_preference():
 @app.route("/preference", methods=["DELETE"])
 def clear_preferences():
     print("***" * 5, "Calling Clear Preferences")
-    bored.clear_preferences()
+    username = request.args.get("username", None)
+    bored.clear_preferences(username)
     return jsonify({"status": "success", "message": "Deleted preference"}), 200
 
 

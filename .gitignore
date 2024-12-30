@@ -7,3 +7,4 @@ frontend/XensBored/.vscode/*
 src/__pycache__/*
 .vscode
 instance/*
+src/models/__pycache__/*
