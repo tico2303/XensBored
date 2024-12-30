@@ -3,21 +3,22 @@
     display:flex;
     flex-direction: column;
     font-family: 'Poppins', sans-serif; /* Trendy and clean font */
-    //background: $subdued-gradient-horizontal
-    //background:#F2F0EF;
     margin:none;
     border-radius: 10px;
-    //background-color: $french-violet;
     height:100vh;
+    background-color: $darker-gray;
     .top-section{
         //height:30%;
         flex:3;
-        background-color: $french-violet;
+        //background-color: $french-violet;
+        //background: $red-to-pink-to-purple-horizontal-gradient;
+
+        display: flex;
     }
     .bottom-section{
         //height:70%;
         flex:7;
-        background-color: $vivid-pink;
+        background-color: $darker-gray;
         display: flex;
 
     }
@@ -71,13 +72,38 @@
     background-repeat: no-repeat; /* Prevents repeating */
     border-radius: 15px; /* Optional: Add rounded corners */
   }
-  .example-container {
+  .sidenav-container {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
+    //background-color: $darker-gray;
   }
 mat-icon {
   font-size: 24px;
+}
+.resized-image{
+    width: 112px; /* Set desired width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 35px; /* Rounded edges */
+    margin-top:10px;
+    margin-left:10px;
+    margin-right:10px;
+    margin-bottom: -20px;
+}
+
+
+.sidenav-bar{
+    background-color: $dark-gray;
+}
+.sidenav-content{
+    background-color: $darker-gray;
+
+}
+.line{
+    background:$red-to-pink-to-purple-horizontal-gradient;
+    height:2px;
+    margin:1px 0px;
+    border: none;
 }

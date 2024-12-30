@@ -1,12 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 //@import 'assets/indigo-pink.css';
 
+
+
+
 $bright-blue: #4974ff;
 $electric-violet: #7e33ff;
 $french-violet: #6946b7;
 $vivid-pink: #ff2aad;
 $hot-red: #ff5743;
 $orange-red: #ff7433;
+
+$dark-genz-purple: #4B0082; // Indigo
+$dark-genz-blue: #0D47A1; // Dark Blue
+$dark-genz-pink: #880E4F; // Dark Pink
+$dark-genz-green: #1B5E20; // Dark Green
+$dark-genz-orange: #E65100; // Dark Orange
+$dark-genz-yellow: #F57F17; // Dark Yellow
+$dark-genz-red: #B71C1C; // Dark Red
+$dark-genz-teal: #004D40; // Dark Teal
+
+$light-gray: #d3d3d3;
+$medium-gray: #a9a9a9;
+$dark-gray: #696969;
+$darker-gray: #4f4f4f;
+$almost-black: #2f2f2f;
+$black: #000000;
 
 $gray-900: #333333;
 $gray-700: #5e5e5e;
@@ -65,10 +84,19 @@ $pill-accent: $bright-blue;
     color: $orange-red
 }
 body{
-    //background:$off-white;
-    //background:$french-violet;
+    background-color: $darker-gray;
     height:100%;
     margin:0;
     padding:0;
     box-sizing: border-box;
+}
+
+
+
+/* Dark Mode for Modal Dialog */
+.dark-mode-dialog .mat-dialog-container {
+  background-color: #2c2c2c; /* Dark gray background */
+  color: #e0e0e0; /* Light text color */
+  border-radius: 30px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 }

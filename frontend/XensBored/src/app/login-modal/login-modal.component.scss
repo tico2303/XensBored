@@ -1,0 +1,40 @@
+@import '../../styles.scss';
+
+.login-modal {
+    width: 400px;
+    padding: 25px;
+    background-color: $dark-gray;
+    border-radius: 2px;
+    //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  
+    h2 {
+      margin-bottom: 16px;
+      text-align: center;
+      color: white;
+    }
+  
+    .input-field {
+      width: 100%;
+      margin-bottom: 16px;
+      color:white
+    }
+  
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 24px;
+    }
+  
+    button {
+      font-weight: bold;
+      color:white;
+      background-color: $french-violet;
+    }
+  }
+  .input-style{
+  }
+  .label-style{
+    color: white !important;
+  }     
+

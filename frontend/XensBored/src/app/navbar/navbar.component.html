@@ -1,5 +1,14 @@
 <div class="nav-container">
-    <img class="resized-image" src="../../assets/boredomButler.png">
+    <div class="top">
+        <img class="resized-image" src="../../assets/boredomButler.png">
+        <div class="nav-button-container">
+            <button class="nav-button" mat-icon-button color="accent"
+                (click)="openLoginModal()">
+                <mat-icon
+                    class="mat-icon-48">login</mat-icon>
+            </button>
+        </div>
+    </div>
     <div class="line"></div>
     <app-left-bar></app-left-bar>
 </div>

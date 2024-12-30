@@ -17,18 +17,21 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSliderModule} from '@angular/material/slider';
+import { LoginModalComponent } from './login-modal/login-modal.component';
+import {MatDialogModule} from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     ResultsComponent,
-    LeftBarComponent
+    LeftBarComponent,
+    LoginModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
     AppRoutingModule,
     ToastrModule.forRoot({
-      timeOut: 3000, // Duration in milliseconds
+      timeOut: 5000, // Duration in milliseconds
       positionClass: 'toast-top-right', // Position of the toast
       preventDuplicates: true, // Prevent duplicate messages
     }),
@@ -43,6 +46,7 @@ import {MatSliderModule} from '@angular/material/slider';
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatSliderModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

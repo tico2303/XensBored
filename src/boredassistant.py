@@ -4,6 +4,9 @@ import json
 import copy
 from .weatherservice import WeatherService
 from .promptmanager import PromptManager
+import ast
+from src.models import User
+from src.models import db
 
 
 class BoredAssistant:
@@ -13,7 +16,8 @@ class BoredAssistant:
             "outdoor": [],
             "indoor and outdoor": [],
             "social": [],
-            "zipCode": None,
+            # "zipCode": None,
+            # "energyLevel": None,
         }
         self.selected_category = None
         self.activities = copy.deepcopy(self._default_activities)
@@ -25,35 +29,57 @@ class BoredAssistant:
         self.weather_service = WeatherService()
         self.prompt_manager = PromptManager()
 
-    def add_preferences(self, preference: dict):
+    def add_preferences(self, preference: dict, username):
         print("adding preferences: ", preference)
         category = preference.get("category")
-        self.selected_category = category
+        energyLevel = preference.get("energyLevel")
         items = preference.get("items")
         zipCode = preference.get("zipCode", None)
-        self.activities["zipCode"] = zipCode
-        print("adding preferences, for category: ", category)
 
-        if category in self.activities:
-            for item in items:
-                if item not in self.activities[category]:
-                    self.activities[category].append(item)
+        if not username:
+            self.selected_category = category
+            self.activities["zipCode"] = zipCode
+            self.activities["energyLevel"] = energyLevel
+            if category in self.activities:
+                for item in items:
+                    if item not in self.activities[category]:
+                        self.activities[category].append(item)
+            return self.activities
+
         else:
-            print(
-                f"Invalid category: {category}. Please choose from 'indoor', 'outdoor', or 'social'."
+            # update user object in db
+            user = User.update_preferences(
+                username, category, items, energyLevel, zipCode
             )
+            if user:
+                return user.interests
 
-    def clear_preferences(self):
+            else:
+                print(
+                    f"Invalid category: {category}. Please choose from 'indoor', 'outdoor', or 'social'."
+                )
+                return None
+
+    def clear_preferences(self, username):
         print("Clearing Preferences...")
         self.activities = copy.deepcopy(self._default_activities)
+        if username:
+            User.clear_preferences(username)
 
-    def suggest_activity(self):
+    def suggest_activity(self, username):
         if self.selected_category not in self.activities:
             return {
-                "error": "Invalid category. Choose 'indoor', 'outdoor', or 'social'."
+                "status": "error",
+                "message": "Invalid category. Choose 'indoor', 'outdoor', or 'social'.",
             }
-        prompt = self.prompt_manager.add_prompt(self.selected_category, self.activities)
-        print(f"Activites: {self.activities}")
+        if not username:
+            activities = self.activities
+        else:
+            user = User.query_user(username)
+            if user:
+                activities = user.interests
+        prompt = self.prompt_manager.add_prompt(self.selected_category, activities)
+        print(f"Activites: {activities}")
         try:
             response = self.client.chat.completions.create(
                 model="gpt-4o-mini",
@@ -65,18 +91,31 @@ class BoredAssistant:
             # raw_suggestion = raw_suggestion.to_dict()
             # self.prompt_manager.printChatHistory()
         except Exception as e:
-            return f"Error getting suggestion: {e}"
+            return {"status": "error", "message": f"Error getting suggestion: {e}"}
         try:
-            suggestion = json.loads(raw_suggestion["content"])
-            print(type(suggestion))
-            if isinstance(suggestion, str):
-                suggestion = json.loads(suggestion)
-            print("final response: ", suggestion)
-            return suggestion
+            parsed_suggestion = self.parse_to_dict(raw_suggestion["content"])
+            if "content" in parsed_suggestion and isinstance(
+                parsed_suggestion["content"], str
+            ):
+                try:
+                    parsed_suggestion["content"] = json.loads(
+                        parsed_suggestion["content"]
+                    )
+                except json.JSONDecodeError:
+                    pass
+            if isinstance(parsed_suggestion, str):
+                parsed_suggestion = json.loads(parsed_suggestion)
+            parsed_suggestion["status"] = "success"
+            print("final response: ", parsed_suggestion)
+            return parsed_suggestion
         except Exception as e:
             print("Error translating suggestion to dict: ", e)
             print("raw suggestion: ", raw_suggestion)
-            return f"Error translating suggestion to dict: {e}"
+            print("suggestion: ", parsed_suggestion)
+            return {
+                "status": "error",
+                "message": f"Error translating suggestion to dict: {e}",
+            }
 
     def show_preferences(self):
         for category, items in self.activities.items():
@@ -86,3 +125,19 @@ class BoredAssistant:
 
     def getWeather(self, zip_code):
         return self.weather_service.getWeather(zip_code)
+
+    def parse_to_dict(self, data_str):
+        try:
+            # First, attempt to parse directly as a JSON string
+            return json.loads(data_str)
+        except json.JSONDecodeError:
+            try:
+                # Second, attempt to parse using ast.literal_eval for Python-style dicts
+                return ast.literal_eval(data_str)
+            except (ValueError, SyntaxError):
+                # Last, replace single quotes with double quotes and try JSON parsing
+                try:
+                    normalized_str = data_str.replace("'", '"')
+                    return json.loads(normalized_str)
+                except json.JSONDecodeError as e:
+                    raise ValueError(f"Failed to parse string as dict: {e}")
