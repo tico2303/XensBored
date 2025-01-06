@@ -1,7 +1,21 @@
-<mat-spinner *ngIf="appService.isLoading|async"></mat-spinner>
-<div class="remark"> {{suggestion["remark"]}}</div>
-<ul class="suggestion-list">
-    <li class="vivid-pink" *ngFor="let sug of suggestion['suggestions']">
-        {{sug}}
-    </li>
-</ul>
+<div class="container">
+    <mat-spinner class="load-spinner"
+        *ngIf="appService.isLoading|async"></mat-spinner>
+    <div *ngIf="hasResults">
+        <div class="remark"> {{suggestion["remark"]}}</div>
+        <ul class="suggestion-list">
+            <li class="vivid-pink"
+                *ngFor="let sug of suggestion['suggestions']">
+                {{sug}}
+            </li>
+        </ul>
+    </div>
+    <div class="text-container"
+        *ngIf="!hasResults && !(appService.isLoading|async)">
+        <mat-icon class="large-arrow">arrow_back</mat-icon>
+        <div class="large-text">
+            Fill in some stuff about yourself to get started fam!<br><br>
+            Then Create New Vibes!
+        </div>
+    </div>
+</div>

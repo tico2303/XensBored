@@ -4,8 +4,9 @@
     color:$bright-blue;
 }
 .remark{
-    color:$vivid-pink;
-    font-size:larger;
+    //color:$vivid-pink;
+    color: $orange-red;
+    font-size:1.6rem;
     margin-top: 10px;
     margin-bottom: 5%;
 }
@@ -22,19 +23,20 @@
     max-width: 550px;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    //box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
     margin-left:15%;
-    background-color: $light-gray;
 
     li{
-        background: white;
+        background: $dark-gray;
         padding: 15px 20px;
-        margin: 0;
-        color: $french-violet;
+        margin-bottom: 5px;
+        color: $vivid-pink;
         font-size: 1.2rem;
-        font-weight: bold;
         letter-spacing: 0.5px;
-        border-bottom: 1px solid #f0f0f0;
+        border-bottom: 1px solid $darker-gray;
+        border-radius: 15px;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
         display: flex;
         align-items: center;
         gap: 10px;
@@ -65,4 +67,40 @@
       opacity: 0.5; /* Semi-transparent */
       transform: scale(1.3); /* Slightly larger for a glowing effect */
     }
+  }
+  .text-container{
+    display: flex;
+    align-items: center;
+    //justify-content: center;
+    overflow: visible;
+    gap: 10px;
+    .large-text{
+      font-size: 3rem;
+      background: $red-to-pink-to-purple-horizontal-gradient;
+      background-clip: text;
+      -webkit-background-clip: text; /* Clip the background to the text */
+      -webkit-text-fill-color: transparent; /* Make the text fill transparent */
+      margin-top: 20px;
+    }
+    .large-arrow{
+      font-size: 123px;
+      height: 124px;
+      width: 367px;
+      display: inline-block;
+      line-height: 1; /* Ensure no extra spacing */
+      font-weight: bold;
+      //line-height: 1;
+      color:$orange-red;
+      position: relative;
+      left:-62px;
+    }
+
+  }
+  .container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .load-spinner{
+    height:500px !important;
   }
