@@ -87,9 +87,6 @@ class BoredAssistant:
                 messages=self.prompt_manager.chat_history,
             )
             raw_suggestion = response.choices[0].message.to_dict()
-            self.prompt_manager.add_response(raw_suggestion)
-            # raw_suggestion = raw_suggestion.to_dict()
-            # self.prompt_manager.printChatHistory()
         except Exception as e:
             return {"status": "error", "message": f"Error getting suggestion: {e}"}
         try:
@@ -103,19 +100,41 @@ class BoredAssistant:
                     )
                 except json.JSONDecodeError:
                     pass
-            if isinstance(parsed_suggestion, str):
-                parsed_suggestion = json.loads(parsed_suggestion)
+            self.prompt_manager.add_response(parsed_suggestion)
             parsed_suggestion["status"] = "success"
-            print("final response: ", parsed_suggestion)
             return parsed_suggestion
         except Exception as e:
             print("Error translating suggestion to dict: ", e)
             print("raw suggestion: ", raw_suggestion)
-            print("suggestion: ", parsed_suggestion)
+            print("type(suggestion): ", type(parsed_suggestion))
+            print("parsed_suggestion: ", parsed_suggestion)
+            self.prompt_manager.printChatHistory()
             return {
                 "status": "error",
                 "message": f"Error translating suggestion to dict: {e}",
             }
+
+    def parse_suggestion(self, parsed_suggestion, max_depth, current_depth=0):
+        # Check if recursion depth exceeds the max_depth
+        if current_depth >= max_depth:
+            return parsed_suggestion
+
+        # If the suggestion is a string, try to parse it
+        if isinstance(parsed_suggestion, str):
+            try:
+                parsed_suggestion = json.loads(parsed_suggestion)
+            except json.JSONDecodeError:
+                # If parsing fails, return the string as-is
+                return parsed_suggestion
+
+        # If the parsed suggestion is still a string, attempt parsing again recursively
+        if isinstance(parsed_suggestion, str):
+            return self.parse_suggestion(
+                parsed_suggestion, max_depth, current_depth + 1
+            )
+
+        # If the parsed suggestion is a dictionary, return it
+        return parsed_suggestion
 
     def show_preferences(self):
         for category, items in self.activities.items():

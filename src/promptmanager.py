@@ -51,9 +51,7 @@ class PromptManager:
         return prompt
 
     def add_response(self, response: dict):
-        self.chat_history.append(
-            {"role": "assistant", "content": json.dumps(response["content"])}
-        )
+        self.chat_history.append({"role": "assistant", "content": json.dumps(response)})
 
     def printChatHistory(self):
         print("*" * 20)
