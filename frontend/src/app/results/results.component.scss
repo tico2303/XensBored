@@ -75,7 +75,7 @@
     overflow: visible;
     gap: 10px;
     .large-text{
-      font-size: 3rem;
+      font-size: 1.5rem;
       background: $red-to-pink-to-purple-horizontal-gradient;
       background-clip: text;
       -webkit-background-clip: text; /* Clip the background to the text */
@@ -85,7 +85,7 @@
     .large-arrow{
       font-size: 123px;
       height: 124px;
-      width: 367px;
+      width: 150px;
       display: inline-block;
       line-height: 1; /* Ensure no extra spacing */
       font-weight: bold;
