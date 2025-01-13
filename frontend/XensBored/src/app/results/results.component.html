@@ -1,7 +1,7 @@
 <div class="container">
     <mat-spinner class="load-spinner"
         *ngIf="appService.isLoading|async"></mat-spinner>
-    <div *ngIf="hasResults">
+    <div *ngIf="hasResults && !(appService.isLoading |async)">
         <div class="remark"> {{suggestion["remark"]}}</div>
         <ul class="suggestion-list">
             <li class="vivid-pink"
